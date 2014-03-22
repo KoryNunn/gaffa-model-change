@@ -1,0 +1,22 @@
+{
+  "name": "gaffa-model-change",
+  "author": "Kory Nunn <knunn187@gmail.com>",
+  "version": "1.0.0",
+  "main": "modelChange.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KoryNunn/gaffa-model-change.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KoryNunn/gaffa-model-change/issues"
+  },
+  "keywords": [
+    "gaffa",
+    "model-change",
+    "behaviour"
+  ],
+  "peerDependencies": {
+    "gaffa": "^1.0.0"
+  },
+  "license": "MIT"
+}
