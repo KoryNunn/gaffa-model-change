@@ -16,7 +16,7 @@
     "behaviour"
   ],
   "peerDependencies": {
-    "gaffa": "^1.0.0"
+    "gaffa": "^1.10.0"
   },
   "license": "MIT"
 }

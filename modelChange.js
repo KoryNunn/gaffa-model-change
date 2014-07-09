@@ -1,14 +1,13 @@
-var Gaffa = require('gaffa'),
-    behaviourType = 'modelChange';
+var Gaffa = require('gaffa');
 
-    
+
 function executeBehaviour(behaviour, value){
     behaviour.gaffa.actions.trigger(behaviour.actions.change, behaviour);
 }
 
 function ModelChangeBehaviour(){}
 ModelChangeBehaviour = Gaffa.createSpec(ModelChangeBehaviour, Gaffa.Behaviour);
-ModelChangeBehaviour.prototype.type = behaviourType;
+ModelChangeBehaviour.prototype._type = 'modelChange';
 ModelChangeBehaviour.prototype.condition = new Gaffa.Property({value: true});
 ModelChangeBehaviour.prototype.watch = new Gaffa.Property({
     update: function(behaviour, value){
@@ -36,12 +35,6 @@ ModelChangeBehaviour.prototype.watch = new Gaffa.Property({
         }else{
             executeBehaviour(behaviour, value);
         }
-    },
-    sameAsPrevious: function(){
-        var changed = typeof this.value === 'object' || this.getPreviousHash() !== this.value;
-        this.setPreviousHash(this.value);
-
-        return !changed;
     }
 });
 
