@@ -1,7 +1,7 @@
 {
   "name": "gaffa-model-change",
   "author": "Kory Nunn <knunn187@gmail.com>",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "modelChange.js",
   "repository": {
     "type": "git",
