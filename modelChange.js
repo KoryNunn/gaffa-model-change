@@ -1,16 +1,6 @@
 var Gaffa = require('gaffa');
 
-
-function executeBehaviour(behaviour, value){
-    behaviour.gaffa.actions.trigger(behaviour.actions.change, behaviour);
-}
-
-function ModelChangeBehaviour(){}
-ModelChangeBehaviour = Gaffa.createSpec(ModelChangeBehaviour, Gaffa.Behaviour);
-ModelChangeBehaviour.prototype._type = 'modelChange';
-ModelChangeBehaviour.prototype.condition = new Gaffa.Property({value: true});
-ModelChangeBehaviour.prototype.watch = new Gaffa.Property({
-    update: function(behaviour, value){
+function change(behaviour){
         var gaffa = behaviour.gaffa;
 
         if(!behaviour.condition.value){
@@ -22,20 +12,29 @@ ModelChangeBehaviour.prototype.watch = new Gaffa.Property({
             var now = new Date();
             if(!behaviour.lastTrigger || now - behaviour.lastTrigger > throttleTime){
                 behaviour.lastTrigger = now;
-                executeBehaviour(behaviour, value);
+                behaviour.triggerActions('change');
             }else{
                 clearTimeout(behaviour.timeout);
                 behaviour.timeout = setTimeout(function(){
                         behaviour.lastTrigger = now;
-                        executeBehaviour(behaviour, value);
+                        behaviour.triggerActions('change');
                     },
                     throttleTime - (now - behaviour.lastTrigger)
                 );
             }
         }else{
-            executeBehaviour(behaviour, value);
+            behaviour.triggerActions('change');
         }
     }
+}
+
+function ModelChangeBehaviour(){}
+ModelChangeBehaviour = Gaffa.createSpec(ModelChangeBehaviour, Gaffa.Behaviour);
+ModelChangeBehaviour.prototype._type = 'modelChange';
+ModelChangeBehaviour.prototype.condition = new Gaffa.Property({
+    update: change,
+    value: true
 });
+ModelChangeBehaviour.prototype.watch = new Gaffa.Property(change);
 
 module.exports = ModelChangeBehaviour;
